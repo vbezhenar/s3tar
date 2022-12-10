@@ -10,19 +10,18 @@ This project is in "Work in Progress" state. Do not use it.
 ```
 export SRC_ENDPOINT=https://object.pscloud.io/
 export SRC_REGION=kz-ala-1
-export SRC_BUCKET=12345-test-src
 export SRC_ACCESS_KEY=ABC123
 export SRC_SECRET_KEY=AbCd1234
-
+export SRC_BUCKET=12345-test-src
 export SRC_PREFIX=data/
 
 export TAR_ENDPOINT=https://object.pscloud.io/
 export TAR_REGION=kz-ala-1
-export TAR_BUCKET=12345-test-dst
 export TAR_ACCESS_KEY=ABC123
 export TAR_SECRET_KEY=AbCd1234
-
+export TAR_BUCKET=12345-test-dst
 export TAR_PREFIX=archive/tar/
+
 export LST_PREFIX=archive/list/
 
 export TAR_FORMAT=USTAR
@@ -54,17 +53,11 @@ corresponding command line switch.
 
 Command line switches override corresponding environment variables.
 
-`(SRC|TAR|LST)_(ENDPOINT|REGION|BUCKET|ACCESS_KEY|SECRET_KEY|SESSION_TOKEN)`: S3
-connection parameters for source/tar/listing storage. If all LST connection
-parameters are omitted, TAR connection parameters will be used.
+`(SRC|TAR|LST)_(ENDPOINT|REGION|ACCESS_KEY|SECRET_KEY|SESSION_TOKEN|BUCKET|PREFIX)`:
+S3 parameters for source/tar/listing storage. If all LST connection parameters
+are omitted, TAR connection parameters will be used.
 [Default configuration source](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/config)
 will be used if some parameters are omitted.
-
-`SRC_PREFIX` select only keys with the specified prefix.
-
-`TAR_PREFIX` use this prefix for storing tar objects.
-
-`LST_PREFIX` use this prefix for locating and storing listing objects.
 
 `TAR_FORMAT` one of `USTAR`, `PAX`, `GNU`. `USTAR` allows only ASCII keys and
 has various size limitations, most notably 8GiB per archive. `PAX` and `GNU` do
@@ -73,7 +66,7 @@ not have any realistic limits.
 format. Default value is `PAX`.
 
 ## Directions for future improvements
-
+- Download lst files concurrently
 - Use bloom filter to reduce RAM usage for huge storages.
 - Gzip tar archives before uploading them into the tar storage. Other
   compression algorithms might be useful as well.
