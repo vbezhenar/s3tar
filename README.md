@@ -41,7 +41,7 @@ export TAR_FORMAT=USTAR
    upload into the listing storage;
 
 Tar archive and lst object use key names derived from the program start UTC
-timestamp. Example: `2022-10-26_13-05-59.tar`.
+timestamp. Example: `2022-10-26_13-05-59-987Z.tar`.
 
 ## Parameters
 
